@@ -14,8 +14,8 @@ params:
 
 
 inputs:
-  - name: api-nodejs
+  - name: web-nodejs
 outputs:
   - name: tag-out
 run:
-  path: api-nodejs/ci/tasks/build-rc.sh
+  path: web-nodejs/ci/tasks/build-rc.sh
