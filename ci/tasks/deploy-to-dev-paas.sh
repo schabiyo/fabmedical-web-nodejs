@@ -16,6 +16,6 @@ az appservice web config container update -s dev -n $server_prefix-web-nodejs -g
     --docker-registry-server-url $acr_endpoint \
     --docker-custom-image-name $acr_endpoint/ossdemo/web-nodejs:$img_tag
 
-az webapp config appsettings set --setting PORT=3000 -g $paas_rg -n $server_prefix-web-nodejs
+az appservice web config appsettings update --setting PORT=3000 -g $paas_rg -n $server_prefix-web-nodejs
 
 echo "The WEB App is available here:${server_prefix}-web-nodejs-dev.azurewebsites.net
