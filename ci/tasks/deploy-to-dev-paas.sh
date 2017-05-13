@@ -20,3 +20,4 @@ az appservice web config container update -s dev -n $server_prefix-web-nodejs -g
     --docker-registry-server-url $acr_endpoint \
     --docker-custom-image-name $acr_endpoint/ossdemo/web-nodejs:$img_tag
 
+echo "The WEB App is available here:"
