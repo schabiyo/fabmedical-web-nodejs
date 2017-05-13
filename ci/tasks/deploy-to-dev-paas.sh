@@ -18,4 +18,4 @@ az appservice web config container update -s dev -n $server_prefix-web-nodejs -g
 
 az appservice web config appsettings update --setting PORT=3000 -g $paas_rg -n $server_prefix-web-nodejs
 
-echo "The WEB App is available here:${server_prefix}-web-nodejs-dev.azurewebsites.net
+echo "The WEB App is available here:${server_prefix}-web-nodejs-dev.azurewebsites.net"
