@@ -1,0 +1,21 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: web-nodejs
+spec:
+  replicas: 2 # tells deployment to run 2 pods matching the template
+  template: # create pods using pod definition in this template
+    metadata:
+      # generated from the deployment name
+      labels:
+        app: web-nodejs
+        env: staging
+    spec:
+      containers:
+      - name: web-nodejs
+        image: WEB-NODEJS-REPOSITORY
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 3001
+      imagePullSecrets:
+      - name: ossdemoregistrykey
