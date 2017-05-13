@@ -1,0 +1,35 @@
+---
+#Deploy the container to the worker nodes
+
+- hosts: dockerhosts
+  remote_user: VALUEOF-DEMO-ADMIN-USER-NAME
+  sudo : true 
+
+  tasks: 
+    # Ensure that a our container  is running. This will:
+# - pull the latest version of the application image.
+# - ensure that a container is running with the specified name and exact image.
+#   If any configuration options have changed, the existing container will be
+#   stopped and removed, and a new one will be launched in its place.
+
+  - name: Log into private registry and force re-authorization
+    docker_login:
+      registry: VALUEOF-REGISTRY-SERVER-NAME
+      username: VALUEOF-REGISTRY-USER-NAME
+      password: VALUEOF-REGISTRY-PASSWORD
+      reauthorize: yes
+
+  - name: Kill the existing DOCKER Image
+    command: docker rm api-nodejs -f
+    become: true
+    ignore_errors: true
+
+  - name: Pull the new DOCKER container
+    command: docker pull VALUEOF-IMAGE-REPOSITORY
+    become: true
+
+  - name: Start the DOCKER container
+    command: docker run -d -p 81:3001 --name=api-nodejs VALUEOF-IMAGE-REPOSITORY
+    become: true
+
+
