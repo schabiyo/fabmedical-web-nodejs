@@ -20,7 +20,7 @@
       reauthorize: yes
 
   - name: Kill the existing DOCKER Image
-    command: docker rm api-nodejs -f
+    command: docker rm web-nodejs -f
     become: true
     ignore_errors: true
 
@@ -29,7 +29,7 @@
     become: true
 
   - name: Start the DOCKER container
-    command: docker run -d -p 81:3001 --name=api-nodejs VALUEOF-IMAGE-REPOSITORY
+    command: docker run -d -p 80:3000 --name=web-nodejs VALUEOF-IMAGE-REPOSITORY
     become: true
 
 
