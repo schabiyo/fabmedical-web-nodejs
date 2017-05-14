@@ -7,7 +7,7 @@
 var request = require('request');
 
 //TODO: Exercise 2 - Task 6 - Step 4
-var contentApiUrl = 'http://localhost:3001';
+var contentApiUrl = process.env.API_ENDPOINT || 'http://localhost:3001';
 //var contentApiUrl = process.env.CONTENT_API_URL;
 
 function getSessions(cb) {

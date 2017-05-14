@@ -18,7 +18,7 @@ echo $server_ssh_public_key >> ~/.ssh/id_rsa.pub
 chmod 600 ~/.ssh/id_rsa*
 
 web_repository=$acr_endpoint/ossdemo/web-nodejs:$img_tag
-
+api_endpoint="http://dev-${server_prefix}.${location}.cloudapp.azure.com:81"
 touch web-nodejs/ci/tasks/ansible/docker-hosts
 printf "%s\n" "[dockerhosts]" >> web-nodejs/ci/tasks/ansible/docker-hosts
 printf "%s\n" "dev-${server_prefix}.${server_location}.cloudapp.azure.com" >> web-nodejs/ci/tasks/ansible/docker-hosts
@@ -29,6 +29,8 @@ sed -i -e "s@VALUEOF-REGISTRY-SERVER-NAME@${acr_endpoint}@g" web-nodejs/ci/tasks
 sed -i -e "s@VALUEOF-REGISTRY-USER-NAME@${acr_username}@g" web-nodejs/ci/tasks/ansible/playbook-iaas-docker-deploy.yml
 sed -i -e "s@VALUEOF-REGISTRY-PASSWORD@${acr_password}@g" web-nodejs/ci/tasks/ansible/playbook-iaas-docker-deploy.yml
 sed -i -e "s@VALUEOF-IMAGE-REPOSITORY@${web_repository}@g" web-nodejs/ci/tasks/ansible/playbook-iaas-docker-deploy.yml
+sed -i -e "s@VALUEOF-API-ENDPOINT@${api_endpoint}@g" web-nodejs/ci/tasks/ansible/playbook-iaas-docker-deploy.yml
+API_ENDPOINT=VALUEOF-API-ENDPOINT
 
 cd web-nodejs/ci/tasks/ansible
  ansible-playbook -i docker-hosts playbook-iaas-docker-deploy.yml --private-key ~/.ssh/id_rsa
