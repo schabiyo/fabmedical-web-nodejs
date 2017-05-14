@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -e -x
+set -e
 
 echo "Deploying to DEV PAAS"
 img_tag=$(<web-version/number)
