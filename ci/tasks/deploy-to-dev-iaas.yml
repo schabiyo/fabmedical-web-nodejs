@@ -13,6 +13,7 @@ params:
   tenant_id:
   subscription_id:
   paas_rg:
+  location:
   server_admin_username:
   server_location:
   server_prefix:
