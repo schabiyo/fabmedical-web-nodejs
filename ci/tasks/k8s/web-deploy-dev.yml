@@ -13,9 +13,9 @@ spec:
     spec:
       containers:
       - name: web-nodejs
-        image: API-NODEJS-REPOSITORY
+        image: WEB-NODEJS-REPOSITORY
         imagePullPolicy: Always
         ports:
-        - containerPort: 3001
+        - containerPort: 3000
       imagePullSecrets:
       - name: ossdemoregistrykey

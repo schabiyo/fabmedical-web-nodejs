@@ -16,6 +16,6 @@ spec:
         image: WEB-NODEJS-REPOSITORY
         imagePullPolicy: Always
         ports:
-        - containerPort: 3001
+        - containerPort: 3000
       imagePullSecrets:
       - name: ossdemoregistrykey
