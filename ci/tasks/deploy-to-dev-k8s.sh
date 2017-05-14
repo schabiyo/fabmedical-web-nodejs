@@ -41,7 +41,7 @@ fi
 
 ~/kubectl create -f web-nodejs/ci/tasks/k8s/web-deploy-dev.yml --namespace=ossdemo-dev
 echo "Initial deployment & expose the service"
-~/kubectl expose deployments web-nodejs --port=80 --target-port=3000 --type=LoadBalancer --name=web-nodejs
+~/kubectl expose deployments web-nodejs --port=80 --target-port=3000 --type=LoadBalancer --name=web-nodejs --namespace=ossdemo-dev
 
 externalIP="pending"
 while [[ $externalIP == *"endin"*  ]]; do
