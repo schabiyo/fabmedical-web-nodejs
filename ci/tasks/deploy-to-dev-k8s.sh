@@ -1,15 +1,9 @@
 #!/bin/bash
-
 set -e -x
 
 echo "Deploying to DEV K8s"
 img_tag=$(<web-version/number)
 echo "Image version: "$img_tag
-
-#touch tag-out/rc_tag
-#echo "1.0.1" >> tag-out/rc_tag
-## Config the Docker Container
-# 1-Login to Azure using the az command line
 
 az login --service-principal -u "$service_principal_id" -p "$service_principal_secret" --tenant "$tenant_id"
 az account set --subscription "$subscription_id"
@@ -31,21 +25,23 @@ echo "create secret to login to the private registry"
 
 sed -i -e "s@WEB-NODEJS-REPOSITORY@${web_repository}@g" web-nodejs/ci/tasks/k8s/web-deploy-dev.yml
 
+set +e
 #Delete current deployment first
-check=$(eval ~/kubectl get deployment web-nodejs --namespace ossdemo-dev)
+check=$(~/kubectl get deployment web-nodejs --namespace ossdemo-dev)
 if [[ $check != *"NotFound"* ]]; then
   echo "Deleting existent deployment"
   result=$(eval ~/kubectl delete deployment web-nodejs --namespace ossdemo-dev)
   echo result 
 fi
 
-check=$(eval ~/kubectl get svc web-nodejs --namespace ossdemo-dev)
+check=$(~/kubectl get svc web-nodejs --namespace ossdemo-dev)
 if [[ $check != *"NotFound"* ]]; then
   echo "Deleting existent  service"
   result=$(eval ~/kubectl delete svc web-nodejs --namespace ossdemo-dev)
   echo result
 fi
 
+set -e
 
 ~/kubectl create -f web-nodejs/ci/tasks/k8s/web-deploy-dev.yml --namespace=ossdemo-dev
 echo "Initial deployment & expose the service"
