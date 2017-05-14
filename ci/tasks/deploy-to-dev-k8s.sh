@@ -35,8 +35,10 @@ sed -i -e "s@WEB-NODEJS-REPOSITORY@${web_repository}@g" web-nodejs/ci/tasks/k8s/
 check=$(~/kubectl get deployment web-nodejs --namespace ossdemo-dev)
 if [[ $check != *"NotFound"* ]]; then
   echo "Deleting existent deployment"
-  ~/kubectl delete deployment web-nodejs --namespace ossdemo-dev 2> /dev/null
-  ~/kubectl delete svc web-nodejs --namespace ossdemo-dev 2> /dev/null 
+  result=$(eval ~/kubectl delete deployment web-nodejs --namespace ossdemo-dev)
+  echo result
+  result=$(eval ~/kubectl delete svc web-nodejs --namespace ossdemo-dev)
+  echo result 
 fi
 
 ~/kubectl create -f web-nodejs/ci/tasks/k8s/web-deploy-dev.yml --namespace=ossdemo-dev
