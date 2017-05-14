@@ -39,7 +39,7 @@ if [[ $check != *"NotFound"* ]]; then
   ~/kubectl delete svc -l app=web-nodejs,env=dev 
 fi
 
-~/kubectl create -f web-nodejs/ci/tasks/k8s/web-deploy-dev.yml
+~/kubectl create -f web-nodejs/ci/tasks/k8s/web-deploy-dev.yml --namespace=ossdemo-dev
 echo "Initial deployment & expose the service"
 ~/kubectl expose deployments web-nodejs --port=80 --target-port=3001 --type=LoadBalancer --name=web-nodejs
 
