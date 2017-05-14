@@ -32,14 +32,20 @@ echo "create secret to login to the private registry"
 sed -i -e "s@WEB-NODEJS-REPOSITORY@${web_repository}@g" web-nodejs/ci/tasks/k8s/web-deploy-dev.yml
 
 #Delete current deployment first
-check=$(~/kubectl get deployment web-nodejs --namespace ossdemo-dev)
+check=$(eval ~/kubectl get deployment web-nodejs --namespace ossdemo-dev)
 if [[ $check != *"NotFound"* ]]; then
   echo "Deleting existent deployment"
   result=$(eval ~/kubectl delete deployment web-nodejs --namespace ossdemo-dev)
-  echo result
-  result=$(eval ~/kubectl delete svc web-nodejs --namespace ossdemo-dev)
   echo result 
 fi
+
+check=$(eval ~/kubectl get svc web-nodejs --namespace ossdemo-dev)
+if [[ $check != *"NotFound"* ]]; then
+  echo "Deleting existent  service"
+  result=$(eval ~/kubectl delete svc web-nodejs --namespace ossdemo-dev)
+  echo result
+fi
+
 
 ~/kubectl create -f web-nodejs/ci/tasks/k8s/web-deploy-dev.yml --namespace=ossdemo-dev
 echo "Initial deployment & expose the service"
