@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -e
+set -e -x
 
 echo "Deploying to DEV K8s"
 img_tag=$(<web-version/number)
