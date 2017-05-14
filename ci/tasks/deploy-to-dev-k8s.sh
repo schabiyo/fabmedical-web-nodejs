@@ -32,22 +32,22 @@ echo "create secret to login to the private registry"
 sed -i -e "s@WEB-NODEJS-REPOSITORY@${web_repository}@g" web-nodejs/ci/tasks/k8s/web-deploy-dev.yml
 
 #Delete current deployment first
-check=$(~/kubectl get deployment -l app=web-nodejs,env=dev)
+check=$(~/kubectl get deployment web-nodejs --namespace ossdemo-dev)
 if [[ $check != *"NotFound"* ]]; then
   echo "Deleting existent deployment"
-  ~/kubectl delete deployment -l app=web-nodejs,env=dev
-  ~/kubectl delete svc -l app=web-nodejs,env=dev 
+  ~/kubectl delete deployment web-nodejs --namespace ossdemo-dev
+  ~/kubectl delete svc web-nodejs --namespace ossdemo-dev 
 fi
 
 ~/kubectl create -f web-nodejs/ci/tasks/k8s/web-deploy-dev.yml --namespace=ossdemo-dev
 echo "Initial deployment & expose the service"
-~/kubectl expose deployments web-nodejs --port=80 --target-port=3001 --type=LoadBalancer --name=web-nodejs
+~/kubectl expose deployments web-nodejs --port=80 --target-port=3000 --type=LoadBalancer --name=web-nodejs
 
 externalIP="pending"
 while [[ $externalIP == *"endin"*  ]]; do
   echo "Waiting for the service to get exposed..."
   sleep 30s
-  line=$(~/kubectl get services | grep 'web-nodejs')
+  line=$(~/kubectl get services --namespace ossdemo-dev | grep 'web-nodejs')
   IFS=' '
   read -r -a array <<< "$line"
   externalIP="${array[2]}"
