@@ -19,6 +19,6 @@ spec:
         - containerPort: 3000
         env:
         - name: API_ENDPOINT
-          value: "api-nodejs"
+          value: "http://api-nodejs"
       imagePullSecrets:
       - name: ossdemoregistrykey
