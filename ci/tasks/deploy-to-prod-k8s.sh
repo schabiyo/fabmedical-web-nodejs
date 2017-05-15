@@ -1,5 +1,4 @@
 #!/bin/bash
-set -x
 
 echo "Deploying to PROD K8s"
 img_tag=$(<web-version/number)

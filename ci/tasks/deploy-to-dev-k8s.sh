@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e -x
+set -e
 
 echo "Deploying to DEV K8s"
 img_tag=$(<web-version/number)
@@ -50,7 +50,7 @@ echo "Initial deployment & expose the service"
 externalIP="pending"
 while [[ $externalIP == *"endin"*  ]]; do
   echo "Waiting for the service to get exposed..."
-  sleep 30s
+  sleep 15s
   line=$(~/kubectl get services --namespace ossdemo-dev | grep 'web-nodejs')
   IFS=' '
   read -r -a array <<< "$line"
