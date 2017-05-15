@@ -13,6 +13,7 @@ params:
   tenant_id:
   subscription_id:
   paas_rg:
+  location:
   server_prefix:
   acr_endpoint:
   acr_username:
