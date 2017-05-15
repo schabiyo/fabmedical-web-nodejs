@@ -16,6 +16,6 @@ az appservice web config container update -s prod -n $server_prefix-web-nodejs -
     --docker-custom-image-name $acr_endpoint/ossdemo/web-nodejs:$img_tag
 
 az appservice web config appsettings update --setting PORT=3000 -g $paas_rg -n $server_prefix-web-nodejs
-az appservice web config appsettings update -s prod --setting API_ENDPOINT=http://${server_prefix}-api-nodejs.azurewebsites.net -g $paas_rg -n $server_prefix-web-nodejs
+az appservice web config appsettings update --setting API_ENDPOINT=http://${server_prefix}-api-nodejs.azurewebsites.net -g $paas_rg -n $server_prefix-web-nodejs
 
 echo "The WEB App is available here:${server_prefix}-web-nodejs.azurewebsites.net"
