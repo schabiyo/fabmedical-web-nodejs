@@ -1,7 +1,7 @@
 #!/bin/bash
-set -e -x
+set -x
 
-echo "Deploying to DEV K8s"
+echo "Deploying to PROD K8s"
 img_tag=$(<web-version/number)
 echo "Image version: "$img_tag
 
@@ -27,31 +27,31 @@ sed -i -e "s@WEB-NODEJS-REPOSITORY@${web_repository}@g" web-nodejs/ci/tasks/k8s/
 
 set +e
 #Delete current deployment first
-check=$(~/kubectl get deployment web-nodejs --namespace ossdemo-dev)
+check=$(~/kubectl get deployment web-nodejs --namespace ossdemo-prod)
 if [[ $check != *"NotFound"* ]]; then
   echo "Deleting existent deployment"
-  result=$(eval ~/kubectl delete deployment web-nodejs --namespace ossdemo-dev)
+  result=$(eval ~/kubectl delete deployment web-nodejs --namespace ossdemo-prod)
   echo result 
 fi
 
-check=$(~/kubectl get svc web-nodejs --namespace ossdemo-dev)
+check=$(~/kubectl get svc web-nodejs --namespace ossdemo-prod)
 if [[ $check != *"NotFound"* ]]; then
   echo "Deleting existent  service"
-  result=$(eval ~/kubectl delete svc web-nodejs --namespace ossdemo-dev)
+  result=$(eval ~/kubectl delete svc web-nodejs --namespace ossdemo-prod)
   echo result
 fi
 
 set -e
 
-~/kubectl create -f web-nodejs/ci/tasks/k8s/web-deploy.yml --namespace=ossdemo-dev
+~/kubectl create -f web-nodejs/ci/tasks/k8s/web-deploy.yml --namespace=ossdemo-prod
 echo "Initial deployment & expose the service"
-~/kubectl expose deployments web-nodejs --port=80 --target-port=3000 --type=LoadBalancer --name=web-nodejs --namespace=ossdemo-dev
+~/kubectl expose deployments web-nodejs --port=80 --target-port=3000 --type=LoadBalancer --name=web-nodejs --namespace=ossdemo-prod
 
 externalIP="pending"
 while [[ $externalIP == *"endin"*  ]]; do
   echo "Waiting for the service to get exposed..."
   sleep 30s
-  line=$(~/kubectl get services --namespace ossdemo-dev | grep 'web-nodejs')
+  line=$(~/kubectl get services --namespace ossdemo-prod | grep 'web-nodejs')
   IFS=' '
   read -r -a array <<< "$line"
   externalIP="${array[2]}"

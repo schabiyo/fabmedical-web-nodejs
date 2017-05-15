@@ -9,7 +9,6 @@ spec:
       # generated from the deployment name
       labels:
         app: web-nodejs
-        env: staging
     spec:
       containers:
       - name: web-nodejs
@@ -19,6 +18,6 @@ spec:
         - containerPort: 3000
         env:
         - name: API_ENDPOINT
-          value: "api-nodejs"
+          value: "http://api-nodejs"
       imagePullSecrets:
       - name: ossdemoregistrykey
