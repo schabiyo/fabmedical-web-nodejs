@@ -21,7 +21,7 @@ web_repository=$acr_endpoint/ossdemo/web-nodejs:$img_tag
 api_endpoint="http://prod-${server_prefix}.${location}.cloudapp.azure.com:81"
 touch web-nodejs/ci/tasks/ansible/docker-hosts
 printf "%s\n" "[dockerhosts]" >> web-nodejs/ci/tasks/ansible/docker-hosts
-printf "%s\n" "prod-${server_prefix}.${server_location}.cloudapp.azure.com" >> web-nodejs/ci/tasks/ansible/docker-hosts
+printf "%s\n" "prod-${server_prefix}.${location}.cloudapp.azure.com" >> web-nodejs/ci/tasks/ansible/docker-hosts
 #printf "%s\n" "staging-${server_prefix}.${server_location}.cloudapp.azure.com" >> web-nodejs/ci/tasks/ansible/docker-hosts
 
 sed -i -e "s@VALUEOF-DEMO-ADMIN-USER-NAME@${server_admin_username}@g" web-nodejs/ci/tasks/ansible/playbook-iaas-docker-deploy.yml
@@ -36,5 +36,5 @@ cd web-nodejs/ci/tasks/ansible
  ansible-playbook -i docker-hosts playbook-iaas-docker-deploy.yml --private-key ~/.ssh/id_rsa
 cd ..
 
-echo -e ".you can now browse the application at http://prod-${server_prefix}.${server_location}.cloudapp.azure.com for individual servers."
+echo -e ".you can now browse the application at http://prod-${server_prefix}.${location}.cloudapp.azure.com for individual servers."
 

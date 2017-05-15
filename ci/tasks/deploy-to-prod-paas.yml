@@ -25,4 +25,4 @@ inputs:
   - name: web-nodejs
   - name: web-version
 run:
-  path: web-nodejs/ci/tasks/deploy-to-dev-paas.sh
+  path: web-nodejs/ci/tasks/deploy-to-prod-paas.sh
