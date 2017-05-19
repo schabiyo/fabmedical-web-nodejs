@@ -8,7 +8,7 @@ WORKDIR /usr/src/app
 COPY package.json /usr/src/app/
 RUN npm install
 
-npm install applicationinsights --save
+RUN npm install applicationinsights --save
 # Bundle app source
 COPY . /usr/src/app
 
