@@ -29,7 +29,7 @@
     become: true
 
   - name: Start the DOCKER container
-    command: docker run -d -p 80:3000 -e API_ENDPOINT=VALUEOF-API-ENDPOINT --name=web-nodejs VALUEOF-IMAGE-REPOSITORY
+    command: docker run -d -p 80:3000 -e API_ENDPOINT=VALUEOF-API-ENDPOINT VALUEOF_APPINSIGHT_KEY --name=web-nodejs VALUEOF-IMAGE-REPOSITORY
     become: true
 
 
